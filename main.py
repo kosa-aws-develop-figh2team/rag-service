@@ -30,10 +30,10 @@ def retrieve_documents(request: AnswerRequest):
     
     try:
         logger.info(f"[응답 생성] 질문 및 문서 수신")
-        result = generate_response_text(request.question_text, content_list)
+        output_text = generate_response_text(request.question_text, content_list)
     except Exception as e:
         logger.error(f"[응답 생성 실패] {str(e)}")
         raise HTTPException(status_code=500, detail="응답 생성 실패")
     
-    return result
+    return {"response_text": output_text}
 
