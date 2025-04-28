@@ -1,4 +1,4 @@
-from langchain.chat_models import ChatBedrock
+from langchain_aws.chat_models.bedrock import ChatBedrock
 from langchain.schema import SystemMessage, HumanMessage
 from langchain.prompts import ChatPromptTemplate
 from typing import List
