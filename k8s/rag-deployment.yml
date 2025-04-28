@@ -16,9 +16,13 @@ spec:
       labels:
         app: rag-api
     spec:
+      serviceAccountName: rag-service-account
       containers:
       - name: rag-api
         image: 687436499847.dkr.ecr.ap-northeast-2.amazonaws.com/backend/rag-service:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 5201 
+        env:
+        - name: AWS_REGION
+          value: ap-northeast-2

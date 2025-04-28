@@ -1,4 +1,4 @@
-from langchain.chat_models import init_chat_model
+from langchain.chat_models import ChatBedrock
 from langchain.schema import SystemMessage, HumanMessage
 from langchain.prompts import ChatPromptTemplate
 from typing import List
@@ -33,10 +33,10 @@ def generate_response_text(question_text: str, docs: List[str]) -> str:
         prompt = load_prompt_template(prompt_template_path)
         messages = prompt.format_messages(question=question_text, context=context)
 
-        # Claude 3.5 Sonnet v2 모델 초기화
-        llm = init_chat_model(
-            model="anthropic.claude-3-5-sonnet-20241022-v2:0",
-            model_provider="bedrock_converse",
+        # Titan 모델 초기화
+        llm = ChatBedrock(
+            model_id="amazon.titan-text-lite-v1",    # Titan 모델 ID
+            region_name=os.getenv("AWS_REGION", "ap-northeast-2"),  # AWS_REGION 환경변수 또는 기본 서울 리전
             temperature=0.7
         )
 
