@@ -19,7 +19,7 @@ def generate_response_text(question_text: str, docs: List[str]) -> str:
     """
     try:
         region = os.getenv("AWS_REGION", "ap-northeast-2")
-        model_id = "amazon.titan-text-express-v1"  # Titan Express 모델 ID
+        model_id = "anthropic.claude-3-5-sonnet-20241022-v2" 
 
         client = get_bedrock_client(region=region)
 
@@ -44,13 +44,11 @@ User 질문:
 """
 
         body = {
-            "inputText": prompt,
-            "textGenerationConfig": {
-                "temperature": 0.7,
-                "maxTokenCount": 1024,
-                "topP": 0.9,
-                "stopSequences": []
-            }
+            "prompt": prompt, 
+            "max_tokens": 4096,
+            "temperature": 0.7,
+            "top_p": 0.9,
+            "stop_sequences": []
         }
 
         logger.info("Titan 모델 호출 시작")
