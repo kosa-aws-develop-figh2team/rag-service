@@ -40,7 +40,7 @@ def generate_response_text(question_text: str, docs: List[str]) -> str:
             temperature=0.7
         )
 
-        response = llm(messages)
+        response = llm.invoke(messages)
 
         logger.info(f"LLM 응답 생성 성공: {response.content[:30]}...")
         return response.content
