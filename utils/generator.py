@@ -35,7 +35,7 @@ def generate_response_text(question_text: str, docs: List[str]) -> str:
 
         # Titan 모델 초기화
         llm = ChatBedrock(
-            model_id="amazon.titan-text-lite-v1",    # Titan 모델 ID
+            model_id="amazon.titan-text-premier-v1:0",    # Titan 모델 ID
             region_name=os.getenv("AWS_REGION", "ap-northeast-2"),  # AWS_REGION 환경변수 또는 기본 서울 리전
             temperature=0.7
         )
