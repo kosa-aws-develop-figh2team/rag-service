@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rag-service
+  namespace: backend
+spec:
+  selector:
+    app: rag-api
+  ports:
+    - protocol: TCP
+      port: 5201      # 서비스 포트
+      targetPort: 5201 # 컨테이너 포트
+  type: ClusterIP

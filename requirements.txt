@@ -1,0 +1,5 @@
+langchain==0.3.24
+langchain-aws==0.2.22
+boto3==1.38.3
+python-dotenv
+requests==2.32.3

@@ -1,0 +1,24 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rag-deployment
+  namespace: backend
+  labels:
+    app: rag-api
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: rag-api
+  template:
+    metadata:
+      labels:
+        app: rag-api
+    spec:
+      containers:
+      - name: rag-api
+        image: 687436499847.dkr.ecr.ap-northeast-2.amazonaws.com/backend/rag-service:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5201 

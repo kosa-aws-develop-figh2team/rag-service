@@ -1,4 +1,4 @@
-from langchain.chat_models import init_chat_model
+from langchain.chat_models import ChatOpenAI
 from langchain.schema import SystemMessage, HumanMessage
 from langchain.prompts import ChatPromptTemplate
 from typing import List
@@ -33,13 +33,7 @@ def generate_response_text(question_text: str, docs: List[str]) -> str:
         prompt = load_prompt_template(prompt_template_path)
         messages = prompt.format_messages(question=question_text, context=context)
 
-        # Claude 3.5 Sonnet v2 모델 초기화
-        llm = init_chat_model(
-            model="anthropic.claude-3-5-sonnet-20241022-v2:0",
-            model_provider="bedrock_converse",
-            temperature=0.7
-        )
-
+        llm = ChatOpenAI(model="gpt-4.1-nano", temperature=0.7)
         response = llm(messages)
 
         logger.info(f"LLM 응답 생성 성공: {response.content[:30]}...")
