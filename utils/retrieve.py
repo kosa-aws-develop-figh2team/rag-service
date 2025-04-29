@@ -13,9 +13,9 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 EMBED_API_HOST = os.getenv("EMBED_API_HOST", "embed-service.embed.svc.cluster.local")
 EMBED_API_PORT = os.getenv("EMBED_API_PORT", "5001")
 
-def get_retrieve_result(text: str) -> List[str]:
+def get_retrieve_result(text: str) -> List[dict]:
     """
-    embed-service의 /embed/retrieve API를 호출하여 검색된 문서 문자열을 반환합니다.
+    embed-service의 /embed/retrieve API를 호출하여 검색된 문서를 반환합니다.
     """
     try:
         logger.info(f"[프록시] embed-service 호출: {text[:30]}...")
@@ -30,9 +30,9 @@ def get_retrieve_result(text: str) -> List[str]:
             raise ValueError("응답에 'results' 필드가 없습니다.")
 
         if len(result_list) == 0:
-            return [""]
+            return [{"id":"", "service_id":"", "content":""}]
         else:
-            return [rl.get('content') for rl in result_list]
+            return result_list
 
     except Exception as e:
         logger.error(f"[프록시] embed-service 호출 실패: {str(e)}")

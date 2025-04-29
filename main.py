@@ -17,23 +17,29 @@ class AnswerRequest(BaseModel):
 
 class AnswerResponse(BaseModel):
     response_text: str
+    service_ids: list
 
 # 유사 문서 검색 API
 @app.post("/rag/answer", response_model=AnswerResponse)
 def retrieve_documents(request: AnswerRequest):
     try:
         logger.info(f"[문서 검색] 텍스트 임베딩 api 호출")
-        content_list = get_retrieve_result(request.question_text)
+        result_list = get_retrieve_result(request.question_text)
     except Exception as e:
         logger.error(f"[문서 검색 실패] {str(e)}")
         raise HTTPException(status_code=500, detail="문서 검색 실패")
     
     try:
+        content_list = []
+        service_list = []
+        for rl in result_list:
+            content_list.append(rl.get('content'))
+            service_list.append(rl.get('service_id'))
         logger.info(f"[응답 생성] 질문 및 문서 수신")
         output_text = generate_response_text(request.question_text, content_list)
     except Exception as e:
         logger.error(f"[응답 생성 실패] {str(e)}")
         raise HTTPException(status_code=500, detail="응답 생성 실패")
     
-    return {"response_text": output_text}
+    return {"response_text": output_text, "service_ids": service_list}
 
