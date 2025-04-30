@@ -19,7 +19,7 @@ spec:
       serviceAccountName: rag-service-account
       containers:
       - name: rag-api
-        image: 687436499847.dkr.ecr.ap-northeast-2.amazonaws.com/backend/rag-service:latest
+        image: 687436499847.dkr.ecr.ap-northeast-2.amazonaws.com/backend/rag-service:d513d8d4a9695461ee070376bf789f026780423b
         imagePullPolicy: Always
         ports:
         - containerPort: 5201 
